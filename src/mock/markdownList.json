@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "title": "CSS学习笔记",
+        "path": "/note/css",
+        "fileName": "CSS笔记",
+        "introduce": "CSS学习过程留下记录，TO BE CONTINUED",
+        "language":"css"
+    },{
+        "id": 2,
+        "title": "Vue学习笔记",
+        "path": "/note/vue",
+        "fileName": "Vue笔记",
+        "introduce": "Vue学习过程留下记录，TO BE CONTINUED",
+        "language":"vue"
+    },{
+        "id": 3,
+        "title": "html学习笔记",
+        "path": "/note/html",
+        "fileName": "html笔记",
+        "introduce": "HTML学习过程留下记录，TO BE CONTINUED",
+        "language":"html"
+    },{
+        "id": 4,
+        "title": "JavaScript学习笔记",
+        "path": "/note/javascript",
+        "fileName": "JavaScript笔记",
+        "introduce": "JavaScript学习过程留下记录，TO BE CONTINUED",
+        "language":"javascript"
+    },{
+        "id": 5,
+        "title": "前端面试题",
+        "path": "/note/question",
+        "fileName": "面试题",
+        "introduce": "面试问题积累中，TO BE CONTINUED",
+        "language":"question"
+    },{
+        "id": 6,
+        "title": "JS实用方法",
+        "path": "/note/js-fun",
+        "fileName": "functional JavaScript",
+        "introduce": "记录好用的代码，TO BE CONTINUED",
+        "language":"javascript"
+    },{
+        "id": 7,
+        "title": "CSS实用方法",
+        "path": "/note/css-fun",
+        "fileName": "functional CSS",
+        "introduce": "记录好用的代码，TO BE CONTINUED",
+        "language":"css"
+    }
+]
