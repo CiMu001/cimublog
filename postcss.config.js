@@ -1,9 +1,9 @@
 module.exports = () => ({
     plugins: {
-        'postcss-pxtorem': {
-            rootValue: 37.5,
-            propList: ['*']
-        },
+        // 'postcss-pxtorem': {
+        //     rootValue: 37.5,
+        //     propList: ['*']
+        // },
         // 'postcss-px-to-viewport': {
         //     // (String) 需要转换的单位，默认为"px"
         //     unitToConvert: 'px',

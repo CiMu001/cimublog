@@ -673,27 +673,27 @@ Vue.component('props-demo-advanced',
 
 
 
-## 过滤器
+## 过滤器 - filter
 
-对显示的数据进行指定效果过滤后在显示，不适合对数据进行复杂的逻辑处理
+**功能：** 对显示的数据进行指定效果过滤后在显示，不适合对数据进行复杂的逻辑处理
 
 过滤器可以连续使用，比如 `{{ arr | arrFormater(4) | lastWord }}`
 
-### 注册
+**注册**
 
 | 注册位置 | 注册方法                         |
 | -------- | -------------------------------- |
 | 全局注册 | Vue.filter(filterName, callback) |
 | 局部注册 | filters: { name(){ } }           |
 
-### 使用
+**使用**
 
 | 使用位置    | 使用方法                 |
 | ----------- | ------------------------ |
 | 插值语法    | {{ name \|  filterName}} |
 | v-bind:属性 | ”name \| filterName“     |
 
-### 传参
+**传参**
 
 | 参数       | 说明                             |
 | ---------- | -------------------------------- |
@@ -713,7 +713,7 @@ filters: {
 }
 ```
 
-### 案例
+**案例**
 
 ```html
 <body>
@@ -760,7 +760,7 @@ filters: {
 
 ### class样式绑定
 
-#### 字符串
+**字符串写法**
 
 ```html
 <style>
@@ -777,7 +777,7 @@ data: {
 }
 ```
 
-#### 对象
+**对象写法**
 
 ```html
 <!-- 写法一 -->
@@ -796,7 +796,7 @@ data: {
 }
 ```
 
-#### 数组
+**数组写法**
 
 ```html
 <!-- 可以使用三元表达式判断 -->
@@ -872,3 +872,455 @@ data: {
 ```
 
 **key的作用：**在vue中dom更新前会先进行虚拟dom的对比算法，在列表循环渲染时，通过key值作为唯一标识，来判断新dom和旧dom是否相同的元素；
+
+
+
+## ref属性
+
+功能：标签属性，在vue中用来**获取DOM**的方法，在标签指定 `ref`属性，可从 `vm.$refs`中取得；
+
+ref写在`HTML元素`上时，可以获取到相应的`DOM`；
+
+ref写到`vue组件`上时，可以获取到当前组件的`实例对象`；
+
+```HTML
+<h1 ref='title'>这是标题</h1>
+
+const h1 = this.$refs.title;
+```
+
+
+
+## 插槽 - slot
+
+**功能：**在组件编写时定义一个占位，当组件被使用时标签体中的内容会放到定义的占位处
+
+### 默认插槽
+
+**Index.vue**
+
+```vue
+<template>
+	<div class="container">
+        <Type>
+           <p>
+别学{{books1}}啦，"前端已死", 你这努力学了这么久，（从零开始自学半年的程度）也不会有很好的就业环境，不是说现在你掌握了前端基本三剑客，就可以实习或当一个初级工程师，没有经验就没有工作机会！！！除非你学到精锐到源码级别，掌握计算机网络，各种框架，有些大公司还会进行算法考核，最主要的是会有公司让后端工程师来些前端，总之，新入坑就换个赛道把，可以走的更远！！！
+    		</p>
+    	</Type>
+        <Type>
+            <ul>
+                <li v-for="item in books2">{{ item }}</li>
+    		</ul>
+    	</Type>
+        <Type>
+            <ul>
+                <li v-for="item in books3">{{ item }}</li>
+    		</ul>
+    	</Type>
+    </div>
+</template>
+
+<script>
+	import Type from '@/components/Type'
+    
+    export default {
+        name: 'Index',
+        components: {Type},
+        data() {
+            return {
+                books1: 'html, js, css',
+                books2: ['react', 'vue', 'ts'],
+                books3: ['java', 'mysql', 'python'],
+            }
+        }
+    }
+</script>
+```
+
+**Type.vue**
+
+```vue
+<template>
+	<div class='type'>
+        <h1>热门分类</h1>
+        <slot></slot>
+    </div>
+</template>
+
+<script>
+export default {}
+</script>
+```
+
+> 样式写在使用组件或定义组件的地方都可以生效
+>
+> 在<slot>这是默认展示</slot>中也可以写一些默认的展示，在没有传递时展示
+
+
+
+### 具名插槽
+
+**功能：**指定插槽，把内容放到指定的slot中
+
+**type.vue**
+
+```vue
+<template>
+	<div class='type'>
+        <h1>热门分类</h1>
+        <slot name="txt"></slot>
+        <slot name="list"></slot>
+    </div>
+</template>
+```
+
+**Index.vue**
+
+```vue
+<template>
+	<div class="container">
+        <Type>
+            <p slot="txt"> 别学{{books1}}啦，"前端已死?!"</p>
+            <p slot="txt">太难了/(ㄒoㄒ)/~~</p>
+            <p slot="txt">什么时候可以财务自由啊！！！</p>
+            <ul slot="list">
+               <li v-for="item in books2">{{ item }}</li>
+    		</ul>
+    	</Type>
+    </div>
+</template>
+```
+
+>具名插槽可以写多个，不会进行覆盖，会顺序全部展示
+>
+>vue2.6新增： 当插入内容为template包裹时， 可以写成 `<template v-slot:txt>内容</template`
+
+
+
+### 作用域插槽
+
+**功能：**定义组件时在插槽标签中传递数据给组件使用插槽的地方使用，即实现在index.vue中<Type></Type>组件体中使用Type.vue下<slot>传递的数据
+
+**Type.vue**
+
+```vue
+<template>
+	<div class='type'>
+        <h1>热门分类</h1>
+        <slot :shuji="books"></slot>
+    </div>
+</template>
+<script>
+	export default {
+        data() {
+            return {
+                books: ['html', 'js', 'css'],
+            }
+        }
+    }
+</script>
+```
+
+**Index.vue**
+
+```vue
+<template>
+	<div class="container">
+        <Type>
+            <template scope="{shuji}">
+				<ul>
+                   <li v-for="item in shuji">{{ item }}</li>
+                </ul>
+			</template>
+    	</Type>
+		<Type>
+            <template scope="typeData">
+				<h3 v-for="item in typeData.shuji">{{ item }}</h3>
+			</template>
+    	</Type>
+    </div>
+</template>
+```
+
+> 作用域插槽就是取到组件中数据，然后对数据以不同的方式进行展示时使用
+
+## 混入/混合 - mixin
+
+**功能：** 用来抽离在Vue组件中**公用的配置项**
+
+**例：** 组件1和组件2等组件...公用一个功能计时器，就可以编写一个混入，一处编写，多处引用即可；
+
+**timeCount.js**
+
+```javascript
+export const tiemConut = {
+    data() {
+        return {
+            weekday: {
+                1: '星期一',
+                2: '星期二',
+                3: '星期三',
+                4: '星期死',
+                5: '星期五',
+                6: '星期六',
+                7: '星期日',
+            },
+            time: {
+                yymmdd: '2022.12.26',
+                weekday: '星期二',
+                time: '08:23:34',
+            },
+        }
+    },
+    created() {
+        // 设置header展示时间
+        this.tiemInterval =  setInterval(() => {
+        this.time.time = moment().format('HH:mm:ss');
+        this.time.weekday = this.weekday[moment().weekday()];
+        this.time.yymmdd = moment().format('YYYY.MM.DD');
+        }, 1000);
+    },
+}
+```
+
+**组件中注册使用**
+
+```vue
+<template>
+	<p class="time-box">{{`${curTime.yymmdd}    ${curTime.weekday}${curTime.time}`}}</p>
+</template>
+<script>
+import moment from "moment";
+import { tiemConut } from '../timeCount';
+
+export default {
+    name: 'VueComponent1',
+    mixins: [tiemConut],
+}
+</script>
+```
+
+>个人理解：  复用某些功能有很多实现的方式，例如工具方法会抽离写在utils下、封装成一个组件之类的；但mixins给开发者提供了一种代码公用的方案，而且还可以data、钩子函数等配置项进行公用，这是一个特点；
+
+### 特性
+
+- 混合过来的代码，会融入到当前组件下
+- 如果混合过来配置项与当前组件冲突，则会**优先采用当前组件配置**
+- 对于**钩子函数配置**，会把当前组件和混合中的代码**全部保留**，并且**混合**中的代码在**前**，**当前组件**代码在**后**
+- 混合也支持全局注册，在vue实例下进行配置，所有的vm，vc都可以使用
+
+
+
+## 组件自定义事件
+
+**功能：**实现子组件给父组件通信
+
+在父组件中注册方法，通过`v-on`或`$on`给子组件绑定自定义事件，在子组件中使用`$emit`触发父级定义的方法，实现通信
+
+### 案例
+
+**Father.vue**
+
+```vue
+<template>
+	<Son @setSonName="setSonName" />
+  	<div>儿子名： {{ sonName }}</div>
+</template>
+
+<script>
+import Son from '../Son';
+    
+export default {
+    data() {
+        return {
+            sonName: '',
+        }
+    },
+    components: { Son },
+    methods: {
+        setSonName(name) {
+            this.sonName = name;
+        }
+    },
+}
+</script>
+```
+
+**Son.vue**
+
+```vue
+<template>
+  	<div>{{ sonName }}</div>
+	<button @click="sendName">发送</button>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            name: '张三',
+        }
+    },
+    methods: {
+        sendName() {
+            this.$emit('setSonName', this.sonName);
+        }
+    },
+}
+</script>
+```
+
+### 绑定语法
+
+在父组件中定义方法，并使用`v-on`或`$on、$once`来绑定, $on、$once绑定需要先获取到组件实例
+
+```vue
+// 方法一
+<Son @setSonName="setSonName" />
+
+methods: {
+    setSonName(name) {
+    	this.sonName = name;
+    }
+}
+
+// 方法二
+<Son ref="son" />
+
+methods: {
+    setSonName(name) {
+    	this.sonName = name;
+    }
+}
+mounted() {
+    this.$refs.son.$on('setSonName', this.setSonName);
+},
+```
+
+### 使用语法
+
+在子组件中使用`$emit`来触发
+
+```vue
+this.$emit('setSonName', this.sonName);
+```
+
+### 解绑语法
+
+```js
+// 单个解绑
+this.$off('setSonName');
+// 多个解绑
+this.$off(['setSonName', 'setSonName2', 'setSonNam3']);
+// 全部解绑
+this..$off();
+```
+
+### 注意
+
+**this指向的问题**
+
+```vue
+// 1.
+mounted() {
+	this.$refs.son.$on('setSonName', this.setSonName);
+}
+
+// 2.
+mounted() {
+    this.$refs.son.$on('setSonName', function(name) {
+        this.sonName = name;
+    });
+},
+
+
+// 3.
+mounted() {
+    this.$refs.son.$on('setSonName', (name) => {
+        this.sonName = name;
+    });
+}
+```
+
+> 在方法一中，setSonName定义在methods中， methods下的普通函数vue设置this指向当前实例对象，所有this为当前实例对象
+>
+> 在方法二中，setSonName直接是一个普通函数，所以是谁触发了事件，this就指向谁，事件由son组件触发，this就为送实例对象
+>
+> 在方法三中，setSonName为一个箭头函数，箭头函数是没有自己的this，其this指向为外部的this，所以this为mounted()中的this
+
+**原生事件触发**
+
+```vue
+<Son @click="show" />
+
+<Son @click.native="show" />
+```
+
+> vue组件上绑定事件会默认为自定义事件，通过$emit来触发， 如果想使用原生的事件，使用 `native`修饰符
+
+
+
+## 全局事件总线
+
+**功能：**任意组件之间进行通信方法
+
+全局事件总线要满足以下要求：
+
+- 所有组件都可以调用到
+- 总线对象可以调用$on、$off、$emit方法
+
+**实现：**
+
+组件实例对象都可以访问到VueComponent构造函数中的属性
+
+VueComponent构造函数是由Vue.extend而来， 所以可以访问VM身上的属性
+
+$on、$off、$emit方法也是存在于VM身上，所以可以把VM当作一个全局事件总线
+
+**main.js**
+
+```vue
+import Vue from 'vue';
+import App from './App.vue';
+
+new Vue({
+	el: '#app',
+	render: h => h(App),
+	beforeCreate() {
+		// 配置全局事件总线
+		Vue.prototype.$bus = this;
+	}
+})
+```
+
+**使用方法**
+
+```vue
+// 注册
+this.$bus.$on('hello', (data) => {
+	console.log(data);
+})
+
+// 调用
+this.$bus.$emit('hello', [1,2,3,4])
+
+// 销毁
+this.$bus.$off('hello')
+```
+
+
+
+> 此方法非官方的，是利用自定义事件和Vue中设计的继承关系来实现的
+>
+> 此外，组件自定义事件在组件销毁时会自动销毁，但在全局事件总线中注册并不会销毁，需要自行销毁
+
+
+
+## $nextTick
+
+**功能：** 指定函数会在DOM解析更新后在执行
+
+**语法：**`this.$nextTick(回调函数)`
+
+**使用场景：**在改变数据后，要基于更新后的新DOM进行操作时，在$nextTick回调函数中编写
+

@@ -5,7 +5,7 @@ import store from './store'
 import './components'
 import './plugins'
 import '@/mock/mockServe'
-import '@/utils/flexible'
+// import '@/utils/flexible'
 
 Vue.config.productionTip = false
 

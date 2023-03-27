@@ -207,10 +207,12 @@ main::-webkit-scrollbar {
   .index {
     position: absolute;
     width: fit-content;
+    height: 40px;
     padding: 5px;
     margin: 0;
     background-color: transparent;
     box-shadow: none;
+    overflow: hidden;
     transition: .3s;
   }
 
@@ -239,9 +241,10 @@ main::-webkit-scrollbar {
   .index.show {
     flex: 0 0 240px;
     padding: 15px 30px;;
-    height: 98%;
+    height: 95%;
+    overflow-y: scroll;
     background-color: #fff;
-    box-shadow: -5px -5px 6px -5px rgb(133 133 133 / 60%);
+    box-shadow: -5px 5px 10px -4px rgb(133 133 133 / 60%);
   }
   .index.show .index-item{
     width: auto;

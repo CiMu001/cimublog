@@ -48,5 +48,12 @@
         "fileName": "functional CSS",
         "introduce": "记录好用的代码，TO BE CONTINUED",
         "language":"css"
+    },{
+        "id": 8,
+        "title": "Git学习笔记",
+        "path": "/note/git",
+        "fileName": "GIT",
+        "introduce": "记录GIT学习，TO BE CONTINUED",
+        "language":"git"
     }
 ]
