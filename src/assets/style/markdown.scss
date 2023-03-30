@@ -1,0 +1,71 @@
+::v-deep .vuepress-markdown-body {
+    background-image:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.07) 0%, transparent 0, transparent 98%, rgba(0, 0, 0, 0.07) 0),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.07) 0%, transparent 0, transparent 98%, rgba(0, 0, 0, 0.07) 0);
+    background-position: top;
+    background-size: 20px 20px;
+    padding: 32px 40px !important;
+
+    h1 {
+        font-size: 36px;
+        margin: 66px 0 12px;
+        color: #a862ea;
+        text-align: center;
+    } h2 {
+        font-size: 26px;
+        margin: 44px 0 12px;
+        padding-bottom: 5px;
+        color: #a862ea;
+        border-bottom: 4px solid #a862ea;
+    } h3 {
+        font-size: 24px;
+        margin: 44px 0 12px;
+        padding-bottom: 5px;
+        color: #a862ea;
+    } h4 {
+        font-size: 22px;
+        margin: 44px 0 12px;
+        padding-bottom: 5px;
+        color: #a862ea;
+    } h5 {
+        font-size: 20px;
+        margin: 44px 0 12px;
+        padding-bottom: 5px;
+        color: #a862ea;
+    } h6 {
+        font-size: 18px;
+        margin: 44px 0 12px;
+        padding-bottom: 5px;
+        color: #a862ea;
+    }
+    code {
+        padding: 5px 10px;
+        color: blueviolet;
+    }
+    pre {
+        margin: 14px 0;
+        padding: 20px 24px;
+    }
+    table {
+        margin: 16px 0;
+    }
+    pre code {
+        padding: 0;
+        font-size: 16px;
+        color: #fff;
+    }
+    strong {
+        color: brown;
+    }
+    table {
+        width: fit-content;
+        background-color: #fff;
+    }
+    blockquote {
+        margin: 2em 0;
+        padding: 24px 32px;
+        border-left: 4px solid #26c6da;
+        background: rgba(77,208,225,.15);
+        color: #8961d0;
+    }
+}
