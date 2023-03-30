@@ -239,6 +239,7 @@ main::-webkit-scrollbar {
 
   //  show
   .index.show {
+    width: 240px;
     flex: 0 0 240px;
     padding: 15px 30px;;
     height: 95%;

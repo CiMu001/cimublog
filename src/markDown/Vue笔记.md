@@ -1324,3 +1324,371 @@ this.$bus.$off('hello')
 
 **使用场景：**在改变数据后，要基于更新后的新DOM进行操作时，在$nextTick回调函数中编写
 
+
+
+## Vuex
+
+**功能:** Vue中实现集中式状态（数据）管理的一个Vue官方插件，在Vue应用中对多个组件进行状态集中式管理，
+
+也是一种实现组件间通信方式，可以实现任意组件通信;
+
+![](source/vuex.png)
+
+上图为Vuex工作流，绿色虚线内是Vuex来管理的范围；
+
+图上展示的`actions、mutations、state`是Vuex中重要的三个模块；
+
+**actions:** 
+
+ 模块中支持异步编程，所以通常会在次进行于后端接口的交互（发送请求）、业务逻辑处理等数据处理操作;  
+
+模块中函数通过 `dispatch`接口调用使用
+
+**mutations:** 
+
+模块中来修改state中数据，并且只有在mutations中修改state才可以被开发者工具识别修改，实时展示;
+
+当然在数据不需要业务操作的时候也可以直接进入mutations，来修改数据；
+
+模块中函数通过 `commit`接口调用使用;
+
+**state:** 
+
+模块中来存储数据，并且数据改变后会去重新渲染组件；
+
+
+
+### 安装引用
+
+```git
+npm i vuex
+```
+
+>目前vue3已成为默认版本，所以默认安装vuex是vue3对应的版本
+>
+>vue2中，要使用vuex3版本		`npm i vuex@3`
+>
+>vue3中，要使用vuex4版本		`npm i vuex@4`
+
+在src下新建store文件夹, 文件夹下新建index.js
+
+**src/store/index.js**
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state: {
+        x: 1,
+    },
+    actions: {
+        plus({state, commit}, payload) {
+            const newX = state.x + 1;
+            commit('setX', {newX})
+        }
+    },
+ 	mutations: {
+        setX(state, { newX }) {
+            state.x = newX;
+        }
+    },
+})
+```
+
+**main.js**
+
+```js
+import store from './store'
+
+new Vue({
+  store,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+**test1.vue**
+
+```vue
+<template>
+  <div class="test1">
+    <h1>{{ $store.state.x }}</h1>
+    <button @click="$store.dispatch('plus')"> 加 </button>
+  </div>
+</template>
+```
+
+
+
+### Getter
+
+**功能：** 从 store 中的 state 中派生出一些状态, 功能类似计算属性，也和计算属性一样可以被缓存；
+
+```js
+const store = createStore({
+  state: {
+    todos: [
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
+  },
+  getters: {
+    doneTodos (state) {
+      return state.todos.filter(todo => todo.done)
+    }
+  }
+})
+```
+
+>也可以写箭头函数   `doneTodos: state => state.todos.filter(todo => todo.done)`
+
+
+
+#### 访问Getter值
+
+Getter 会暴露为 `store.getters` 对象，你可以以属性的形式访问这些值：
+
+```js
+store.getters.doneTodos
+```
+
+也可以实现给 getter 传参，然后返回相应数据
+
+```js
+// 定义
+getters: {
+  getTodoById: (state) => (id) => {
+    return state.todos.find(todo => todo.id === id)
+  }
+}
+
+// 使用
+store.getters.getTodoById(2) 
+```
+
+
+
+#### `mapGetters`辅助函数
+
+`mapGetters` 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性：
+
+```js
+import { mapGetters } from 'vuex'
+
+export default {
+    // ...
+    computed: {
+        ...mapGetters([
+            'x', 'y', 'z', 
+            // 也可这样另取一个名字
+            getterA: 'a'
+            // ...
+        ])
+    }
+}
+```
+
+
+
+### Module
+
+Vuex 允许我们将 store 分割成**模块（module）**，每个模块拥有自己的 state、mutation、action、getter、甚至是嵌套子模块；
+
+**index.js**
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import markdown from './markdown'
+import todo from './todo'
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+  },
+  getters: {
+  },
+  mutations: {
+  },
+  actions: {
+  },
+  modules: {
+    markdown, todo,
+  }
+})
+
+```
+
+**markdown.js**
+
+```js
+import { getMDList, getArticles } from '@/api'
+import router from '@/router'
+
+// markdown 仓库
+const state = {
+  markdownList: [],
+}
+
+const getters = {
+  markdownList: state => {
+    return state.markdownList;
+  },
+}
+
+const actions = {
+  async getMarkdownList({commit}) {
+      const res = await getMDList();
+
+      const data = res.data;
+      commit('setMarkdownList', { data });
+
+      return data;
+  },
+}
+
+const mutations = {
+  setMarkdownList(state, { data }) {
+      state.markdownList = data
+  },
+}
+
+export default {
+  state, actions, mutations, getters
+}
+```
+
+#### 命名空间
+
+默认情况下，模块内部的 action 和 mutation 仍然是注册在**全局命名空间**的，Getter 同样也默认注册在全局命名空间；（state是默认具有命名空间）
+
+我们也可以通过添加 `namespaced: true` 的方式使其成为带命名空间的模块；
+
+这时使用getters，actions，mutations时需要加上其命名空间；
+
+```js
+export const account =  {
+	namespaced: true,
+    state, 					// 	state默认就是嵌套的，state.account.userName
+    getters: {
+		isAdmin () { ... } 	// 	调用时 -> getters['account/isAdmin']
+	},
+    actions: {
+    	login () { ... } 	// 	调用时 -> dispatch('account/login')
+    },
+    mutations: {
+    	login () { ... } 	// 	调用时 -> commit('account/login')
+    },
+}
+```
+
+**在带命名空间的模块内访问全局内容**
+
+```js
+modules: {
+  foo: {
+    namespaced: true,
+    getters: {
+      // 第一个参数为本模块下的state
+      // 第二个参数为本模块下的Getters
+      // 第三个参数为全局模块下的state
+      // 第三个参数为全局模块下的Getters
+      someGetter (state, getters, rootState, rootGetters) {
+        getters.someOtherGetter // -> 'foo/someOtherGetter'
+        rootGetters.someOtherGetter // -> 'someOtherGetter'
+        rootGetters['bar/someOtherGetter'] // -> 'bar/someOtherGetter'
+      },
+      someOtherGetter: state => { ... }
+    },
+
+    actions: {
+      // 第一个参数为dispatch
+      // 第二个参数为commit
+      // 第三个参数为本模块下的Getters
+      // 第三个参数为全局模块下的Getters
+      someAction ({ dispatch, commit, getters, rootGetters }) {
+        getters.someGetter 					// -> 'foo/someGetter'
+        rootGetters.someGetter 				// -> 'someGetter'
+        rootGetters['bar/someGetter'] 		// -> 'bar/someGetter'
+
+        dispatch('someOtherAction') 		// -> 'foo/someOtherAction'
+        dispatch('someOtherAction', null, { root: true }) // -> 'someOtherAction'
+
+        commit('someMutation') 				// -> 'foo/someMutation'
+        commit('someMutation', null, { root: true }) // -> 'someMutation'
+      },
+      someOtherAction (ctx, payload) { ... }
+    }
+  }
+}
+```
+
+
+
+**在带命名空间的模块注册全局 action**
+
+若需要在带命名空间的模块注册全局 action，你可添加 `root: true`，并将这个 action 的定义放在函数 `handler` 中；
+
+```js
+modules: {
+   foo: {
+     namespaced: true,
+     actions: {
+       someAction: {
+         root: true,										// 添加次配置项
+         handler (namespacedContext, payload) { ... } 		// -> 'someAction'
+       }
+     }
+   }
+}
+
+```
+
+**带命名空间Map辅助函数**
+
+可以一个参数填写命名空间地址进行配置；
+
+```js
+computed: {
+  ...mapState('命名空间', {
+    a: state => state.a,
+    b: state => state.b
+  }),
+  ...mapGetters('命名空间', [
+    'someGetter', // -> this.someGetter
+    'someOtherGetter', // -> this.someOtherGetter
+  ])
+},
+methods: {
+  ...mapActions('some/nested/module', [
+    'foo', // -> this.foo()
+    'bar' // -> this.bar()
+  ])
+}
+```
+
+#### 模块动态注册
+
+在 store 创建**之后**，你可以使用 `store.registerModule` 方法注册模块：
+
+```js
+import { createStore } from 'vuex'
+
+const store = createStore({ /* 选项 */ })
+
+// 注册模块 `myModule`
+store.registerModule('myModule', {
+  // ...
+})
+
+// 注册嵌套模块 `nested/myModule`
+store.registerModule(['nested', 'myModule'], {
+  // ...
+})
+```
+
+### 
+
+### Vuex的持久化
