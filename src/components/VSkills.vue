@@ -1,88 +1,96 @@
 <template>
-	<div class="skillsPage">
-		<div class="skills"  v-for="type in skills" :key="type.type">
-			<div class="skill-type" @click="handelClick(type.type)">
-				<b-icon class="icon" icon="braces"></b-icon>
-				<div class="skill-info">
-						<span class="name">{{type.type}}</span>
-						<span class="info">More than {{ type.years }} years</span>
-				</div>
-				<span class="drop-btn"><b-icon class="icon" :class="{ cloes: showTypeNames.find(item => item === type.type) }" icon="caret-down-fill"></b-icon></span>
-			</div>
-			<div class="details" :style="{ height: showHeight(type.type) }">
-				<div class="skill-item" v-for="item in type.items" :key="item.name">
-					<b-icon class="icon" icon=""></b-icon>
-					<div class="info-box">
-						<div class="info">
-								<span class="name">{{ item.name }}</span>
-								<span class="pro">{{ item.score }}%</span>
-						</div>
-						<VProgress :value="item.score"></VProgress>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="skillsPage">
+    <div class="skills" v-for="skill of skills" :key="skill[type]">
+      <div class="skill-type" @click="handelClick(skill.type)">
+        <b-icon class="icon" icon="braces"></b-icon>
+        <div class="skill-info">
+          <span class="name">{{ skill.type }}</span>
+          <span class="info">More than {{ skill.years }} years</span>
+        </div>
+        <span class="drop-btn"
+          ><b-icon
+            class="icon"
+            :class="{ cloes: showTypeNames.find((item) => item === skill.type) }"
+            icon="caret-down-fill"
+          ></b-icon
+        ></span>
+      </div>
+      <div class="details" :style="{ height: showHeight(skill.type) }">
+        <div class="skill-item" v-for="item in skill.items" :key="item.name">
+          <b-icon class="icon" icon=""></b-icon>
+          <div class="info-box">
+            <div class="info">
+              <span class="name">{{ item.name }}</span>
+              <span class="pro">{{ item.score }}%</span>
+            </div>
+            <VProgress :value="item.score"></VProgress>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import VProgress from './VProgress.vue';
+import VProgress from "./VProgress.vue";
 
 export default {
   components: { VProgress },
-	data() {
-		return {
-			showTypeNames: [],
-			skills: [
-				{ 
-						type: "Frontend developer",
-						years: '1',
-						items: [
-							{name: 'HTML', score: 60},
-							{name: 'CSS', score: 60},
-							{name: 'JavaScript', score: 80},
-							{name: 'VUE', score: 60},
-							{name: 'React', score: 20}
-						]
-				},{ 
-						type: "后端开发工程师",
-						years: '*',
-						items: [
-							{name: 'Java', score: 20},
-							{name: 'MySQL', score: 20},
-						]
-				},{ 
-						type: "other",
-						years: '1',
-						items: [
-							{name: 'Python', score: 20},
-							{name: 'Apex', score: 90},
-						]
-				},
-			]
-		}
-	},
-	methods: {
-		handelClick(type) {
-			const index = this.showTypeNames.findIndex(item => item === type);
-			if(index === -1) {
-				this.showTypeNames.push(type);
-			} else {
-				const newArr = this.showTypeNames.filter(item => item !== type)
-				this.showTypeNames = newArr;
-			}
-		},
-		showHeight(type) {
-			if(!this.showTypeNames.find(item => item === type)) return '0';
-		}
-	}
-}
+  data() {
+    return {
+      showTypeNames: ['Frontend developer'],
+      skills: [
+        {
+          type: "Frontend developer",
+          years: "1",
+          items: [
+            { name: "HTML", score: 60 },
+            { name: "CSS", score: 60 },
+            { name: "JavaScript", score: 80 },
+            { name: "VUE", score: 60 },
+            { name: "React", score: 20 },
+          ],
+        },
+        {
+          type: "后端开发工程师",
+          years: "*",
+          items: [
+            { name: "Java", score: 20 },
+            { name: "MySQL", score: 20 },
+          ],
+        },
+        {
+          type: "other",
+          years: "1",
+          items: [
+            { name: "Python", score: 20 },
+            { name: "Apex", score: 90 },
+          ],
+        },
+      ],
+    };
+  },
+  methods: {
+    handelClick(type) {
+      const index = this.showTypeNames.findIndex((item) => item === type);
+      if (index === -1) {
+        this.showTypeNames.push(type);
+      } else {
+        const newArr = this.showTypeNames.filter((item) => item !== type);
+        this.showTypeNames = newArr;
+      }
+    },
+    showHeight(type) {
+      if (!this.showTypeNames.find((item) => item === type)) return "0";
+    },
+  },
+};
 </script>
 
 
 <style scoped>
 .skills {
-	padding: 12px 0;
+  padding: 12px 0;
 }
 .skill-type {
   display: flex;
@@ -99,7 +107,7 @@ export default {
 }
 .skill-type .drop-btn .icon {
   font-size: 24px;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .skill-type .drop-btn .icon.cloes {
   transform: rotate(-90deg);
@@ -129,7 +137,7 @@ export default {
   width: 100%;
   /* height: 0; */
   padding: 0 20px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
   /* background-color: aquamarine; */
   overflow: hidden;
 }
@@ -154,5 +162,4 @@ export default {
   font-size: 15px;
   font-weight: 500;
 }
-
 </style>

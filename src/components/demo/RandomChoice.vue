@@ -32,7 +32,9 @@ export default {
             }
         },
         randomSelect() {
-            const times = 20
+            const { items } = this.$refs;
+            const times = items.length * 3 < 20 ? 20 : items.length * 3;
+            const maxTimes = 50;
 
             const interval = setInterval(() => {
                 const randomTag = this.pickRandom()
@@ -51,11 +53,11 @@ export default {
                     randomTag.classList.add('selected')
                 }, 100)
 
-            }, times * 100)
+            }, (times > maxTimes ? maxTimes : times) * 100)
         },
         pickRandom() {
             const { items } = this.$refs;
-            // console.log(Math.floor(Math.random() * items.length));
+            console.log(Math.random() * items.length)
             return items[Math.floor(Math.random() * items.length)];
         }
     }

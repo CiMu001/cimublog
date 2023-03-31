@@ -55,5 +55,12 @@
         "fileName": "GIT",
         "introduce": "记录GIT学习，TO BE CONTINUED",
         "language":"git"
+    },{
+        "id": 9,
+        "title": "算法记录",
+        "path": "/note/algorithm",
+        "fileName": "算法记录",
+        "introduce": "记录算法成长，通过写下来的方式来做到深刻透彻的对算法理解，TO BE CONTINUED",
+        "language":"javascript"
     }
 ]

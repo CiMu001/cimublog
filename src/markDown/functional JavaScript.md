@@ -32,3 +32,14 @@ sortArr[0] // 最小值
 
 ```
 
+## String转换首字大写
+
+```js
+// 转换首字大写
+export const fristWordToUpperCase = (str) => {
+  const arr = Array.from(str)
+  arr.splice(0, 1, arr[0].toUpperCase());
+  return arr.join('')
+}
+```
+

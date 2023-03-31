@@ -185,7 +185,7 @@ body {
 
 结果：
 
-<img src="D:\code Progarm\前端学习记录\学习笔记\source\语义化结果图.png"/>
+<img src=".\source\语义化结果图.png"/>
 
 
 

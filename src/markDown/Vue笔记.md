@@ -1689,6 +1689,6 @@ store.registerModule(['nested', 'myModule'], {
 })
 ```
 
-### 
+
 
 ### Vuex的持久化
