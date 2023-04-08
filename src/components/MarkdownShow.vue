@@ -231,6 +231,7 @@ main::-webkit-scrollbar {
     opacity: 1;
   }
   .index .index-item{
+    display: none;
     width: 0;
     height: 0;
     overflow: hidden;
@@ -248,6 +249,7 @@ main::-webkit-scrollbar {
     box-shadow: -5px 5px 10px -4px rgb(133 133 133 / 60%);
   }
   .index.show .index-item{
+    display: block;
     width: auto;
     height: auto;
     overflow: visible;

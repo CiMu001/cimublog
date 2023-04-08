@@ -1,6 +1,6 @@
 <template>
   <div class="skillsPage">
-    <div class="skills" v-for="skill of skills" :key="skill[type]">
+    <div class="skills" v-for="skill of skills" :key="skill.type">
       <div class="skill-type" @click="handelClick(skill.type)">
         <b-icon class="icon" icon="braces"></b-icon>
         <div class="skill-info">

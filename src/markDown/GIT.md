@@ -728,3 +728,210 @@ $ git remote
 ```
 
 一旦你使用这种方式删除了一个远程仓库，那么所有和这个远程仓库相关的远程跟踪分支以及配置信息也会一起被删除。
+
+
+
+### Git分支
+
+Git 处理分支的方式可谓是难以置信的轻量，创建新分支这一操作几乎能在瞬间完成，并且在不同分支之间的切换操作也是一样便捷。Git 鼓励在工作流程中频繁地使用分支与合并，哪怕一天之内进行许多次。 理解和精通这一特性，你便会意识到 Git 是如此的强大而又独特，并且从此真正改变你的开发方式。
+
+
+
+#### 分支创建/删除
+
+Git 是怎么创建新分支的呢？ 很简单，它只是为你创建了一个可以移动的新的指针。 比如，创建一个 testing 分支， 你需要使用 `git branch` 命令：
+
+```git
+$ git branch testing
+```
+
+>  `HEAD`指向当前所在的分支
+
+<img src="source/image-20230408145115605.png" alt="image-20230408145115605" style="zoom: 67%;" />
+
+
+
+可以使用带 `-d` 选项的 `git branch` 命令来删除分支：
+
+```git
+$ git branch -d testing
+Deleted branch testing (was cd3ed28).
+```
+
+
+
+#### 分支切换
+
+要切换到一个已存在的分支，你需要使用 `git checkout` 命令。 我们现在切换到新创建的 `testing` 分支去：
+
+```git
+ git checkout testing
+```
+
+> 这样 `HEAD` 就指向 `testing` 分支了
+
+<img src="source/image-20230408145128432.png" alt="image-20230408145128432" style="zoom: 67%;" />
+
+
+
+#### 查看分叉历史
+
+你可以简单地使用 `git log` 命令查看分叉历史： 
+
+```git
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/XCMG/项目一/XGXFDataManagerFront (dev)
+$ git log
+commit 8a0a9976f12d10b45927d82c377e63205ee5332a (HEAD -> dev, origin/develop)
+Author: cimu <cimu91894@qq.com>
+Date:   Sat Apr 8 10:14:21 2023 +0800
+
+    封装项目成员选择模块，全面替换基本信息\voc...\项目成员模块为组件式
+
+commit dbb6c0e94a6c29e46c4de3ba128350a38cbad356
+Author: cimu <cimu91894@qq.com>
+Date:   Fri Apr 7 13:47:04 2023 +0800
+
+    完善一级任务删除
+
+commit d6d2dd554e74e2f3c53b31c79cee22f36d285988
+Author: cimu <cimu91894@qq.com>
+Date:   Fri Apr 7 09:24:39 2023 +0800
+
+    整合VOC\CTQ\SWOT分析
+
+commit 40602180c5525210086192192f0cb0f227563899
+Author: cimu <cimu91894@qq.com>
+Date:   Thu Apr 6 09:46:50 2023 +0800
+
+    涉及产品选择添加搜索功能
+```
+
+
+
+#### 新建并切换分支
+
+ 想要新建一个分支并同时切换到那个分支上，你可以运行一个带有 `-b` 参数的 `git checkout` 命令：
+
+```git
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (cimu)
+$ git checkout -b newBranch
+Switched to a new branch 'newBranch'
+
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (newBranch)
+$
+
+```
+
+
+
+#### 热修复
+
+当你在修改newBranch分支下的任务时，突然接到一个电话，有个紧急问题等待你来解决
+
+你要做的是保存你当前分支的内容到暂存区里，然后切换分支到主分支：
+
+```git
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (newBranch)
+$ git add .
+
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (newBranch)
+$ git commit -m 'newbranch 下代码'
+[newBranch d7688b5] newbranch 下代码
+ 2 files changed, 64 insertions(+)
+ create mode 100644 leetcode5.js
+ create mode 100644 "new\345\210\206\346\224\257.txt"
+ 
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (newBranch)
+$ git checkout main
+Switched to branch 'main'
+
+```
+
+这时你的工作目录和你在开始修改`newBranch`问题之前一模一样，接下来，你要修复这个紧急问题。 我们来建立一个 `hotfix` 分支，在该分支上工作直到问题解决：
+
+```git
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (main)
+$ git checkout -b hotfix
+Switched to a new branch 'hotfix'
+
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (hotfix)
+$ git commit -a -m '提交紧急修改代码'
+[hotfix cd3ed28] 提交紧急修改代码
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (hotfix)
+$ git checkout main
+Switched to branch 'main'
+
+cimu9@CiMuBookPro MINGW64 /d/code Progarm/前端学习记录/git项目/git练习项目 (main)
+$ git merge hotfix
+Updating d946160..cd3ed28
+Fast-forward
+ test.txt | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+```
+
+在合并的时候，你应该注意到了“快进（fast-forward）”这个词。 由于你想要合并的分支 `hotfix` 所指向的提交 `C4` 是你所在的提交 `C2` 的直接后继， 因此 Git 会直接将指针向前移动。换句话说，当你试图合并两个分支时， 如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候， 只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”。
+
+
+
+#### 分支合并冲突
+
+有时候合并操作不会如此顺利。 如果你在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们,此时 Git 会暂停下来，等待你去解决合并产生的冲突。
+
+你可以在合并冲突后的任意时刻使用 `git status` 命令来查看那些因包含合并冲突而处于未合并（unmerged）状态的文件：
+
+```git
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+    both modified:      index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+> Git 会在有冲突的文件中加入标准的冲突解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。出现冲突的文件会包含一些特殊区段，看起来像下面这个样子：
+>
+> ```git
+> <<<<<<< HEAD:index.html
+> <div id="footer">contact : email.support@github.com</div>
+> =======
+> <div id="footer">
+>  please contact us at support@github.com
+> </div>
+> >>>>>>> iss53:index.html
+> ```
+
+如果你想使用图形化工具来解决冲突，你可以运行 `git mergetool`，该命令会为你启动一个合适的可视化合并工具，并带领你一步一步解决这些冲突：
+
+```git
+$ git mergetool
+```
+
+
+
+## 常用命令
+
+| 命令                                       |                         说明                          |
+| :----------------------------------------- | :---------------------------------------------------: |
+| `git help`<br />`git <command> -h`         |                     命令帮助提示                      |
+| `git init`                                 |                    初始化为git仓库                    |
+| `git clone`                                |                     **下载项目**                      |
+| `git add .`                                |         将所有内容从工作目录**添加到暂存区**          |
+| `git status`                               |                   **查看文件状态**                    |
+| `git commit -m`                            | 将所有通过 `git add` 暂存的文件内容**提交到暂存区域** |
+| `git commit --amend`                       |             对上次提交的内容进行补充提交              |
+| `git branch <branch>`                      |                       新建分支                        |
+| `git chekout <branch>`                     |                       切换分支                        |
+| `git checkout -b <branch>`                 |                    新建并切换分支                     |
+| `git checkout -b <branch> <origin brnach>` |    新建并切换分支并**远程分支和本地分支关联起来**     |
+| `git push <reomte> <remote branch>`        |              推送代码到远程仓库指定分支               |
+| `git fetch`                                |                   拉取所有分支代码                    |
+| `git merge`                                |                     合并分支代码                      |
+| `git merge <branch>`                       |                  与指定分支进行合并                   |
+
