@@ -1,6 +1,6 @@
 <template>
   <div class="md-page">
-    <aside class="index" ref="aside">
+    <aside class="index" tabindex="0" ref="aside" @blur="$refs.aside.classList.remove('show');">
       <b-icon class="menuBtn" @click="showAside" icon="list-nested"></b-icon>
       <div class="index-item directory"><b>目录</b></div>
       <div class="index-item"
@@ -91,7 +91,7 @@ export default {
       } else {
         aside.classList.add('show');
       }
-    }
+    },
   }
 }
 </script>

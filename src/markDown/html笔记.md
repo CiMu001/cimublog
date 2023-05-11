@@ -3,7 +3,6 @@
 超文本标记语言 (英语：Hypertext Markup Language，简称：HTML ) 是一种用来结构化 Web 网页及其内容的标记语言。 
 
 
-
 ## HTML基本结构
 
 ```html
@@ -570,6 +569,123 @@ body {
 </form>
 ```
 
-<fieldset>进行区域的划分
+`<fieldset>`进行区域的划分
 
-<legend>对划分区域的说明/标题
+`<legend>`对划分区域的说明/标题
+
+
+
+## HTML属性
+
+> 记录遇到时觉得有必要记录/有意思的HTML属性， 并不是属性全书
+
+
+
+### Pattern
+
+指定文本输入框输入内容的正则表达式模式，控制输入符合指定规则的数据
+
+```html
+<input name="username" pattern="[A-Za-Z0-9]+">
+```
+
+> Pattern属性的值必须是一个有效的正则表达式
+>
+> Pattern属性只能应用于文本框、文本域和密码框等可输入文本的元素
+>
+> Pattern属性不会阻止用户输入非法字符, 表单提交时判断是否符合
+
+
+
+### Download
+
+带我研究研究在写
+
+```html
+<a href="file" download> dowenload file </a>
+```
+
+
+
+### contenteditable
+
+contenteditable属性用于指定元素是否为可编辑
+
+```html
+<div contenteditable="true">
+    此div中的文字可以被修改
+</div>
+```
+
+> 属性可取值： true, false, inherit
+>
+> 不会阻止默认行为
+>
+> 安全性问题： XSS攻击、脚本注入
+
+
+
+### hidden
+
+指定元素是否隐藏，感觉v-show 应该是这个原理吧
+
+```html
+<div hidden> 你看不到了 </div>
+```
+
+>设置dispaly： none， dom结构上可以看到
+
+
+
+### poster
+
+指定在视频加载之前或播放之前显示的图片、视频音频播放控制面板
+
+```html
+<video controls="controls" poster="@/assets/logo.svg"></video>
+```
+
+> 只适用于`<video>`标签
+
+
+
+### async
+
+指定脚本是否应该异步加载
+
+```html
+<script src="script.js" async></script>	
+```
+
+> 脚本将异步加载，不会阻止页面的解析和渲染
+>
+> 异步加载的脚本可能会在页面的其他部分加载之前执行， 如果脚本依赖于页面的其他部分，可能会导致错误
+
+
+
+### defer
+
+指定脚本是否应该延迟加载
+
+```html
+<script src="script.js" defer></script>	
+```
+
+> 脚本将延迟加载，直到页面解析完成后再执行， 不会阻止页面的加载
+
+
+
+### draggable
+
+开启元素是否可以进行拖拽
+
+```html
+ <div draggable="true">111</div>
+ <div draggable="true">222</div>
+ <div draggable="true">333</div>
+```
+
+> 属性只是开启了元素可拖拽性， 具体拖拽的实现需要编写一系列的拖拽事件来实现
+> 
+> `dragstart`、`drag` 和 `dragend`等....
+

@@ -41,6 +41,7 @@ export default {
   border-radius: 6px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 6px;
   flex: 1 240px;
   flex-shrink: 0;
@@ -53,6 +54,14 @@ export default {
   font-size: 14px;
   color: #8c95a0;
   margin: 2px 0;
+  max-height: 40px;
+  line-height: 20px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .card .type {
   display: flex;
