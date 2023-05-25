@@ -19,7 +19,7 @@ export default {
   mounted() {
     // 添加监听事件
     window.addEventListener("scroll", this.scrolling);
-    const curDom = this.$refs.toolbar;
+    // const curDom = this.$refs.toolbar;
     // console.log(curDom.parentElement.scrollTop);
   },
   methods: {

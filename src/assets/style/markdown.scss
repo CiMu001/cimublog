@@ -63,9 +63,12 @@
     }
     blockquote {
         margin: 2em 0;
-        padding: 24px 32px;
+        padding: 14px 32px;
         border-left: 4px solid #26c6da;
         background: rgba(77,208,225,.15);
         color: #8961d0;
+    }
+    hr {
+        border-top: 5px dashed #2196f3;
     }
 }

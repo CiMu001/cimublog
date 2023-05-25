@@ -1,6 +1,6 @@
 # GIT
 
-GIT：版本控制工具，分布式版本控制系统（DVCS);
+GIT：版本控制工具，分布式版本控制系统（DVCS）;
 
 ## GIT简史
 
@@ -934,4 +934,21 @@ $ git mergetool
 | `git fetch`                                |                   拉取所有分支代码                    |
 | `git merge`                                |                     合并分支代码                      |
 | `git merge <branch>`                       |                  与指定分支进行合并                   |
+
+
+
+## 问题记录
+
+
+**问题：** **fatal: unable to access xxx, OpenSSL SSL_read: Connection was reset, errno 10054**
+
+**原因：** 解除SSL认证
+
+**解决办法：**
+
+```git
+$ git config --global http.sslVerify "false"
+```
+
+------
 

@@ -2,7 +2,7 @@
   <div class="md-page">
     <aside class="index" tabindex="0" ref="aside" @blur="$refs.aside.classList.remove('show');">
       <b-icon class="menuBtn" @click="showAside" icon="list-nested"></b-icon>
-      <div class="index-item directory"><b>目录</b></div>
+      <div class="directory"><b>目录</b></div>
       <div class="index-item"
         v-for="anchor in indexs"
         :style="{ padding: `10px 0 10px ${anchor.indent * 12}px` }"
@@ -25,6 +25,7 @@
 
 <script>
 import ToolBar from './ToolBar.vue'
+import debounce from '@/utils/debounce';
 // import VueMarkdownEditor, { xss } from '@kangc/v-md-editor';
 
 export default {
@@ -35,9 +36,11 @@ export default {
       mdText: '',
       indexs: [],
       selectIndexId: '',
+      mainScrollTop: 0,
     };
   },
   async mounted() {
+    // 加载MD
     const { fileName } = this.$route.meta;
     await import(`@/markDown/${fileName}.md`).then(data => {
       this.mdText = data.default;
@@ -59,12 +62,35 @@ export default {
       id: el.id,
       title: el.innerText,
       indent: hTags.indexOf(el.tagName),
+      offsetTop: el.offsetTop,
     }));
 
+    // url指定文章ID跳转处理
     const { id:queryId } = this.$route.query;
     if (queryId) {
       this.handleAnchorClick(queryId);
     };
+    
+    // 监听 MainScrollTop
+    const mainScrollTopChange = () => {
+      this.mainScrollTop = Math.floor(this.$refs.main.scrollTop);
+      const nearbyIndex = this.indexs.find(el => Math.abs(this.mainScrollTop - el.offsetTop) <= 60);
+      
+      if(nearbyIndex) {
+        this.selectIndexId = nearbyIndex.id;
+
+        const indexOffsetTop = document.querySelector('.index .index-item .select')?.offsetParent?.offsetTop;
+        const idMapTitleEL = document.querySelector(`#${nearbyIndex.id}`);
+        if(nearbyIndex.offsetTop != idMapTitleEL.offsetTop) { 
+          console.log({ new: idMapTitleEL.offsetTop, old: nearbyIndex.offsetTop}, 'err err err err');
+          this.updateTitleOffsetTop();
+        }
+        
+        this.$refs.aside.scrollTop = indexOffsetTop - 80;
+      }
+    }
+
+    this.$refs.main.addEventListener('scroll', debounce(mainScrollTopChange, 100));
   },
   methods: {
     handleAnchorClick(id, top = 10) {
@@ -92,6 +118,14 @@ export default {
         aside.classList.add('show');
       }
     },
+    // 为什么更新那，due 我发现在展示了图片后标题offsetTop与一开始加载时不一致，不能判断正确结果！
+    async updateTitleOffsetTop() {
+      const anchors = this.$refs.preview.$el.querySelectorAll('h2,h3');
+      const indexs = Array.from(anchors).filter((title) => !!title.innerText.trim());
+      indexs.forEach((el, idx) => {
+        this.$set(this.indexs[idx], 'offsetTop', el.offsetTop);
+      });
+    }
   }
 }
 </script>
@@ -115,23 +149,33 @@ export default {
   top: 4px;
   right: 2%;
   flex: 0 0 240px;
-  padding: 15px 30px;;
   height: 80%;
   border-radius: 5px;
   overflow: auto;
   background-color: #fff;
   transition: .3s;
-}
-.directory {
-  text-align: center;
-  font-size: 18px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #0005;
+  scroll-behavior: smooth;
 }
 .index-item{
   cursor: pointer;
   white-space: nowrap;
   position: relative;
+  margin: 0 30px;
+}
+.directory {
+  position: sticky;
+  top: 0;
+  margin: 0 30px;
+  padding: 8px 0 12px;
+  z-index: 100;
+
+  border-bottom: 1px solid #0005;
+  background: #fff;
+
+  font-size: 18px;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
 }
 .index::-webkit-scrollbar {
   width: 0;
