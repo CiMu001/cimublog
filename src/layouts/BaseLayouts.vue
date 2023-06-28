@@ -10,14 +10,32 @@
 </template>
 
 <script>
-import ToolBar from '../components/ToolBar'
+import ToolBar from '../components/ToolBar';
+import confetti from 'canvas-confetti';
+import '@/utils/snowflake';
 
 export default {
   components: {ToolBar},
+  mounted() {
+    document.addEventListener('click',(e) => {
+      confetti({
+        particleCount: 20,
+        spread: 20,
+        angle: Math.floor(Math.random() * 180),
+        origin: {
+            x: e.clientX / innerWidth,
+            y: e.clientY / innerHeight
+          }
+      });
+    })
+  }
 }
 </script>
 
 <style scoped>
+body {
+  background: #a2f9b2;
+}
 .container {
   /* min-width: 960px; */
   /* min-height: 100vh; */

@@ -56,6 +56,7 @@ import GoodCheapFast from '@/components/demo/GoodCheapFast.vue';
 import VProgress from '@/components/VProgress.vue';
 import VSkills from '@/components/VSkills.vue';
 
+
 export default {
   name: 'HomeView',
   components: {UserAvatar, VCard, IncrementCouter, TitleBox, TodoList, GoodCheapFast, VProgress, VSkills},
@@ -68,7 +69,7 @@ export default {
         { title: '便签', icon: 'pin-angle', info: '简单快速记录一些关键字或想法', url: 'uselessTool/noteapp' },
         { title: '简易绘画本', icon: 'palette', info: '莓永+1， 很low的绘画本', url: 'uselessTool/drawing' },
         { title: '时钟', icon: 'clock', info: '莓永+1， 实现一个小时钟', url: 'uselessTool/clock' },
-        { title: '触摸板', icon: 'mouse3', info: '莓永+1，彩色尾气的触摸板', url: 'uselessTool/hoverBoard' },
+        // { title: '触摸板', icon: 'mouse3', info: '莓永+1，彩色尾气的触摸板', url: 'uselessTool/hoverBoard' },
       ],
     }
   },

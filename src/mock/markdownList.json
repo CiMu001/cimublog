@@ -69,5 +69,12 @@
         "fileName": "HTTP",
         "introduce": "记录HTTP学习，TO BE CONTINUED",
         "language":"http"
+    },{
+        "id": 11,
+        "title": "canvas-confetti笔记",
+        "path": "/note/confetti",
+        "fileName": "Canvas-Confetti",
+        "introduce": "canvas-confetti 整理文档",
+        "language":"javascript"
     }
 ]

@@ -57,7 +57,7 @@ export default {
         },
         pickRandom() {
             const { items } = this.$refs;
-            console.log(Math.random() * items.length)
+            // console.log(Math.random() * items.length)
             return items[Math.floor(Math.random() * items.length)];
         }
     }

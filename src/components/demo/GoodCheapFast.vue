@@ -56,8 +56,10 @@ body .title {
 
 .swtich {
   display: flex;
+  justify-content: center;
   align-items: center;
   margin: 10px;
+  margin-left: -40px;
   font-size: 18px;
 }
 
@@ -76,16 +78,16 @@ body .title {
   cursor: pointer;
   display: inline-block;
   margin: 0 15px 0;
-  width: 80px;
-  height: 40px;
+  width: 60px;
+  height: 30px;
 }
 
 .ball {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 34px;
-  height: 34px;
+  width: 25px;
+  height: 25px;
   background-color: #fff;
   border-radius: 50px;
   animation: slideOff .4s linear forwards;
@@ -109,13 +111,13 @@ body .title {
   }
 
   100% {
-    transform: translateX(40px) scale(1);
+    transform: translateX(30px) scale(1);
   }
 }
 
 @keyframes slideOff {
   0% {
-    transform: translateX(40px) scale(1);
+    transform: translateX(30px) scale(1);
   }
 
   50% {

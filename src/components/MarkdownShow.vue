@@ -82,7 +82,7 @@ export default {
         const indexOffsetTop = document.querySelector('.index .index-item .select')?.offsetParent?.offsetTop;
         const idMapTitleEL = document.querySelector(`#${nearbyIndex.id}`);
         if(nearbyIndex.offsetTop != idMapTitleEL.offsetTop) { 
-          console.log({ new: idMapTitleEL.offsetTop, old: nearbyIndex.offsetTop}, 'err err err err');
+          // console.log({ new: idMapTitleEL.offsetTop, old: nearbyIndex.offsetTop}, 'err err err err');
           this.updateTitleOffsetTop();
         }
         
