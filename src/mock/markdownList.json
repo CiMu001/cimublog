@@ -76,5 +76,13 @@
         "fileName": "Canvas-Confetti",
         "introduce": "canvas-confetti 整理文档",
         "language":"javascript"
+    },{
+        "id": 12,
+        "title": "角色权限说明",
+        "path": "/note/xcmg",
+        "fileName": "角色权限说明",
+        "introduce": "私密",
+        "language":"Markdown"
     }
+    
 ]

@@ -638,25 +638,32 @@ props用于接收来自父组件的数据，是单项数据流绑定
 对象式属性名后可以只跟一个数据类型来规定类型，也可以属性名跟对象，进行高级选项配置
 
 ```
-// 简单语法
+// 简单数组写法
 Vue.component('props-demo-simple', 
     {
       props: ['size', 'myMessage']
     }
 )
 
-// 对象语法，提供验证
+// 简单对象写法
+Vue.component('props-demo-simple', 
+    {
+      props: {
+        height: Number,				// 检测类型
+        myMessage: String,
+      }
+    }
+)
+
+// 完整对象验证
 Vue.component('props-demo-advanced', 
 	{
       props: {
-        // 检测类型
-        height: Number,
-        // 检测类型 + 其他验证
         age: { 
-        	type: Number,
-        	default: 0,
-        	required: true,
-        	validator: function (value) { return value >= 0 }
+        	type: Number,												// 类型限定
+        	default: 0,													// 默认值
+        	required: true,												// 必填
+        	validator: function (value) { return value >= 0 }			// 自定义校验
         }
    	  }
 	}
