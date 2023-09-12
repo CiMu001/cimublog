@@ -10,12 +10,12 @@
         <span class="drop-btn"
           ><b-icon
             class="icon"
-            :class="{ cloes: showTypeNames.find((item) => item === skill.type) }"
+            :class="{ cloes: isShowType(skill.type) }"
             icon="caret-down-fill"
           ></b-icon
         ></span>
       </div>
-      <div class="details" :style="{ height: showHeight(skill.type) }">
+      <div class="details" :style="{ height: showHeight(skill.type) + 'px' }">
         <div class="skill-item" v-for="item in skill.items" :key="item.name">
           <b-icon class="icon" icon=""></b-icon>
           <div class="info-box">
@@ -81,8 +81,17 @@ export default {
       }
     },
     showHeight(type) {
-      if (!this.showTypeNames.find((item) => item === type)) return "0";
+      const { skills, showTypeNames } = this;
+      if(!showTypeNames.find((item) => item === type)) {
+        return 0;
+      }
+      const data = skills.find(item => item.type == type)?.items;
+      return data ? data.length * 52 + 10 : 0;
     },
+    isShowType(type) {
+      const { showTypeNames } = this;
+      return showTypeNames.find((item) => item === type);
+    }
   },
 };
 </script>
@@ -135,18 +144,18 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  /* height: 0; */
   padding: 0 20px;
   transition: all 0.3s ease-out;
-  /* background-color: aquamarine; */
   overflow: hidden;
 }
+
 .details .skill-item {
   flex: 1;
   display: flex;
   flex-shrink: 0;
   flex-grow: 0;
   margin-top: 12px;
+  border-bottom: 1px solid #e0e4f5;
 }
 .details .skill-item .info-box {
   width: 100%;

@@ -1,82 +1,120 @@
 <template>
-    <div class="container">
-        <h1>TODOS</h1>
-        <div class="total">总计<span class="all">{{ total }}</span>条，待完成<span class="undone">{{ undo }}</span>条，已完成<span class="done">{{ done }}</span>条</div>
-        <input type="text" @keyup.enter="addTodo" class="addinput" autocomplete="false" placeholder="输入你的待办项...">
-        <ul class="todos">
-            <div class="notodo" v-if="!todos || todos.length == 0">暂无待办</div>
-            <li v-for="todo in showTodos" :key="todo.id">
-                <label :for="`todo${todo.id}`">
-                    <input type="checkbox" name="state" :id="`todo${todo.id}`"
-                        class="checkinput" :checked="todo.state" @change="stateChange($event, todo.id)">
-                    <input type="text" name="txt" :id="`todo${todo.id}`"
-                        class="txtinput" autocomplete="false" v-model="todo.txt"
-                        :disabled="todo.id == editTodoId">
-                </label>
-                <div class="tool">
-                    <!-- <b-icon class="icon" icon="pencil"></b-icon> -->
-                    <b-icon class="icon" icon="trash" @click="deleteTodo(todo.id)"></b-icon>
-                </div>
-            </li>
-        </ul>
-        <div class="paging">
-            <ul>
-                <template v-if="todos.length > 8">
-                    <li v-for="i in pages" :class="{ curpage:  curPage == i }" :key="i" @click="$store.commit('setPage', {page: i})">{{ i }}</li>
-                    <span>{{curPage}} / {{pages}}</span>
-                </template>
-            </ul>
-        </div>
-        <div class="tip">
-            <p>输入后回车添加事项，鼠标左击文字启动编辑</p>
-        </div>
+  <div class="container">
+    <h1>TODOS</h1>
+    <div class="total">
+      总计<span class="all">{{ total }}</span
+      >条，待完成<span class="undone">{{ undo }}</span
+      >条，已完成<span class="done">{{ done }}</span
+      >条
     </div>
+    <input
+      type="text"
+      @keyup.enter="addTodo"
+      class="addinput"
+      autocomplete="false"
+      placeholder="输入你的待办项..."
+    />
+    <ul class="todos">
+      <div class="notodo" v-if="!todos || todos.length == 0">暂无待办</div>
+      <li v-for="todo in showTodos" :key="todo.id">
+        <label :for="`todo${todo.id}`">
+          <input
+            type="checkbox"
+            name="state"
+            :id="`todo${todo.id}`"
+            class="checkinput"
+            :checked="todo.state"
+            @change="stateChange($event, todo.id)"
+          />
+          <input
+            type="text"
+            name="txt"
+            :id="`todo${todo.id}`"
+            class="txtinput"
+            autocomplete="false"
+            v-model="todo.txt"
+            :disabled="todo.id == editTodoId"
+          />
+        </label>
+        <div class="tool">
+          <!-- <b-icon class="icon" icon="pencil"></b-icon> -->
+          <b-icon
+            class="icon"
+            icon="trash"
+            @click="deleteTodo(todo.id)"
+          ></b-icon>
+        </div>
+      </li>
+    </ul>
+    <div class="paging">
+      <ul>
+        <template v-if="todos.length > 8">
+          <li
+            v-for="i in pages"
+            :class="{ curpage: curPage == i }"
+            :key="i"
+            @click="$store.commit('setPage', { page: i })"
+          >
+            {{ i }}
+          </li>
+          <span>{{ curPage }} / {{ pages }}</span>
+        </template>
+      </ul>
+    </div>
+    <div class="tip">
+      <p>输入后回车添加事项，鼠标左击文字启动编辑</p>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-    props: { todoType: { default: 'todos', type: String } },
-    data() {
-        return {
-            editTodoId: 0
-        }
-    },
-    mounted() {
-        this.$store.dispatch('getTodos', this.todoType);
-    },
-    computed: {
+  props: { todoType: { default: "todos", type: String } },
+  data() {
+    return {
+      editTodoId: 0,
+    };
+  },
+  mounted() {
+    this.$store.dispatch("getTodos", this.todoType);
+  },
+  computed: {
     ...mapGetters({
-        showTodos: 'showTodos',
-        todos: 'todos',
-        total: 'total',
-        undo: 'undo',
-        done: 'done',
-        pages: 'pages',
-        curPage: 'curPage',
+      showTodos: "showTodos",
+      todos: "todos",
+      total: "total",
+      undo: "undo",
+      done: "done",
+      pages: "pages",
+      curPage: "curPage",
     }),
   },
   methods: {
     addTodo(e) {
-        let { value } = e.target;
-        const newTodo = {
-            id: Date.now(),
-            txt: value,
-            state: false
-        }
+      let { value } = e.target;
+      const newTodo = {
+        id: Date.now(),
+        txt: value,
+        state: false,
+      };
 
-        this.$store.dispatch('addTodo', { newTodo, todoType: this.todoType });
-        e.target.value = '';
+      this.$store.dispatch("addTodo", { newTodo, todoType: this.todoType });
+      e.target.value = "";
     },
     deleteTodo(id) {
-        this.$store.dispatch('deteleTodo', { id, todoType: this.todoType });
+      this.$store.dispatch("deteleTodo", { id, todoType: this.todoType });
     },
     stateChange(e, id) {
-        this.$store.dispatch('updateTodos', {id, state: e.target.checked, todoType: this.todoType});
+      this.$store.dispatch("updateTodos", {
+        id,
+        state: e.target.checked,
+        todoType: this.todoType,
+      });
     },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -126,7 +164,7 @@ ul {
 }
 
 .container .total .done {
-  color:mediumseagreen;
+  color: mediumseagreen;
 }
 
 .container .todos {
@@ -138,10 +176,10 @@ ul {
 }
 
 .todos .notodo {
-    color: rgb(179, 131, 226);
-    font-size: 26px;
-    text-align: center;
-    opacity: 0.6;
+  color: rgb(179, 131, 226);
+  font-size: 26px;
+  text-align: center;
+  opacity: 0.6;
 }
 
 .container .todos li {
@@ -181,7 +219,7 @@ ul {
   box-shadow: 0 0 3px rgb(179, 131, 226);
 }
 
-.container .todos .checkinput:checked~.txtinput {
+.container .todos .checkinput:checked ~ .txtinput {
   text-decoration: line-through;
   color: #888;
 }
@@ -226,7 +264,7 @@ ul {
   box-shadow: 1px 1px 3px rgb(179, 131, 226);
 }
 
-@media (max-width: 1140px){
+@media (max-width: 1140px) {
   .container .tip {
     display: none;
   }

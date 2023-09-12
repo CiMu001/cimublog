@@ -37,7 +37,7 @@ export default {
 .card {
   padding: 16px;
   background-color: #fff;
-  border: 1px solid #d0d7de;
+  /* border: 1px solid #d0d7de; */
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -46,6 +46,7 @@ export default {
   flex: 1 240px;
   flex-shrink: 0;
   transition: all 0.2s;
+  box-shadow: 0 2px 7px rgba(5, 34, 97, .1);
 }
 .card:hover{
   box-shadow: 2px 2px 5px 2px rgb(133 133 133 / 60%);
@@ -54,14 +55,14 @@ export default {
   font-size: 14px;
   color: #8c95a0;
   margin: 2px 0;
-  max-height: 40px;
+  max-height: 20px;
   line-height: 20px;
   text-overflow: ellipsis;
   overflow: hidden;
 
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
 }
 .card .type {
   display: flex;

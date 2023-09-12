@@ -40,6 +40,10 @@ body {
   /* min-width: 960px; */
   /* min-height: 100vh; */
   /* background-color: antiquewhite; */
+  background: url('~@/assets/img/blob-scene-haikei.svg');
+  /* background-repeat: no-repeat; */
+  background-size: 100%;
+  min-height: 100vh;
 }
 main {
   position: relative;

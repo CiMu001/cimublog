@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import KineticLoader from '@/components/demo/KineticLoader';
+import KineticLoader from '@/components/demo/KineticLoader.vue';
 
 export default {
     props: {
@@ -18,7 +18,7 @@ export default {
             type: Boolean,
         }
     },
-    components: {KineticLoader}
+    components: { KineticLoader }
 }
 </script>
 <style scoped>

@@ -1,8 +1,8 @@
 <template>
   <div class="useless">
     <div class="tool-home" v-if="$route.path === '/uselessTool'">
-      <!-- <div class="img"></div> -->
-      <img class="img" src="https://picsum.photos/seed/picsum/960/300" alt="" />
+      <div class="img">Useless Tool</div>
+      <!-- <img class="img" :src="img" alt="没用小工具" /> -->
       <div class="container">
         <ToolCard v-for="(tool, index) in tools" :key="index" :tool="tool" @click.native="$router.push(tool.url)"></ToolCard>
       </div>
@@ -17,6 +17,7 @@
 export default {
   data() {
     return {
+      img: require('@/assets/img/blob-scatter-haikei.png'),
       tools: [
         { title: '待办事项', icon: 'check2-square', info: '简单的todos', url: 'uselessTool/todoList' },
         { title: '事件随机选择器', icon: 'box', info: '电子老虎机，解决选择困难症', url: 'uselessTool/randomChoice' },
@@ -42,19 +43,25 @@ export default {
   align-items: center;
 }
 .img {
-  width: 100%;
-  background-color: #425AEF;
   margin-bottom: 32px;
-  height: 300px;
+  height: 360px;
   border-radius: 12px;
-  overflow: hidden;
+  background: url('~@/assets/img/stacked-waves-haikei.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  text-align: center;
+  font-size: 5rem;
+  color: aliceblue;
+  font-family: cursive;
+  line-height: 320px;
 }
 .tool-home, .toolshow {
   width: 80%;
   margin: 32px auto;
-  padding: 16px;
-  background-color: #fff;
-  border: 1px solid #d0d7de;
+  padding: 12px;
+  /* background-color: #fff; */
+  /* border: 1px solid #d0d7de; */
   border-radius: 6px;
 }
 .container {
