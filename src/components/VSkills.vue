@@ -1,5 +1,5 @@
 <template>
-  <div class="skillsPage">
+  <div class="skillsPage" style="color: #fff9">
     <div class="skills" v-for="skill of skills" :key="skill.type">
       <div class="skill-type" @click="handelClick(skill.type)">
         <b-icon class="icon" icon="braces"></b-icon>
@@ -86,7 +86,7 @@ export default {
         return 0;
       }
       const data = skills.find(item => item.type == type)?.items;
-      return data ? data.length * 52 + 10 : 0;
+      return data ? data.length * 58 + 10 : 0;
     },
     isShowType(type) {
       const { showTypeNames } = this;
@@ -155,7 +155,8 @@ export default {
   flex-shrink: 0;
   flex-grow: 0;
   margin-top: 12px;
-  border-bottom: 1px solid #e0e4f5;
+  padding-bottom: 6px;
+  /* border-bottom: 1px solid #e0e4f5; */
 }
 .details .skill-item .info-box {
   width: 100%;

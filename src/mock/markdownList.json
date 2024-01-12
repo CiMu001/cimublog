@@ -83,6 +83,12 @@
         "fileName": "角色权限说明",
         "introduce": "私密",
         "language":"Markdown"
+    },{
+        "id": 13,
+        "title": "专业课复习笔记",
+        "path": "/note/profession-note",
+        "fileName": "专业课复习笔记",
+        "introduce": "网络、程序设计、数据库、数据结构、计算机导论",
+        "language":"Markdown"
     }
-    
 ]

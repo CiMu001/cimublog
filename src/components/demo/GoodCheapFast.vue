@@ -1,5 +1,5 @@
 <template>
-  <div class="GoodCheapFast">
+  <div class="GoodCheapFast" style="color: #f0f8ff; opacity: .8">
     <p class="title">你希望项目是怎样的?</p>
       <div class="swtich">
         <input type="checkbox" id="good" v-model="good" @change="balance('cheap')">

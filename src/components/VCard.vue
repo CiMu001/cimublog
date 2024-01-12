@@ -36,7 +36,7 @@ export default {
 
 .card {
   padding: 16px;
-  background-color: #fff;
+  background-color: #fff9;
   /* border: 1px solid #d0d7de; */
   border-radius: 6px;
   display: flex;
@@ -49,6 +49,7 @@ export default {
   box-shadow: 0 2px 7px rgba(5, 34, 97, .1);
 }
 .card:hover{
+  background-color: #fff;
   box-shadow: 2px 2px 5px 2px rgb(133 133 133 / 60%);
 }
 .card .introduce {

@@ -1,22 +1,22 @@
 <template>
-  <div class="card" >
-        <div class="dot"><b-icon :icon="tool.icon || 'stars'"></b-icon></div>
-        <div class="txt-box">
-            <span class="title">{{tool.title}}</span>
-            <span class="info">{{tool.info}}</span>
-        </div>
+  <div class="card">
+    <div class="dot"><b-icon :icon="tool.icon || 'stars'"></b-icon></div>
+    <div class="txt-box">
+      <span class="title">{{ tool.title }}</span>
+      <span class="info">{{ tool.info }}</span>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    props: {
-        tool: {
-            type: Object,
-            require: true
-        }
-    }
-}
+  props: {
+    tool: {
+      type: Object,
+      require: true,
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -31,16 +31,16 @@ export default {
   transition: 0.3s;
   transition-timing-function: ease-in-out;
   border-radius: 12px;
-  border: 1px solid #e3e8f7;
+  /* border: 1px solid #e3e8f7; */
   box-shadow: 0 8px 16px -4px #2c2d300c;
-  background: #f7f9fe;
+  background: #f7f9fe99;
   transform: scale(1.05);
   cursor: pointer;
 }
 .dot {
   border-radius: 50%;
   margin: 15px 20px 15px;
-  background: #425AEF;
+  background: #425aef;
   float: left;
   width: 60px;
   height: 60px;
@@ -72,16 +72,17 @@ export default {
   color: #363636;
   transition: 0.6s;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .txt-box .info {
   white-space: normal;
   height: 24px;
-  padding: 5px 10px 16px 0;
+  margin-top: 12px;
+  padding: -1px 10px 16px 0;
   text-align: left;
   color: #363636;
-  font-size: 0.6em;
+  font-size: 0.65em;
   text-overflow: ellipsis;
   display: -webkit-box;
   overflow: hidden;
@@ -92,8 +93,8 @@ export default {
 .card:hover {
   transform: scale(1);
   background: #425aef;
-  border: 1px solid #425AEF;
-  box-shadow:  0 8px 12px -3px #425AEF23;
+  border: 1px solid #425aef;
+  box-shadow: 0 8px 12px -3px #425aef23;
 }
 .card:hover .dot {
   transition: 0.6s;
@@ -107,7 +108,8 @@ export default {
 .card:hover .txt-box {
   max-width: 100%;
 }
-.card:hover .title, .card:hover .info {
+.card:hover .title,
+.card:hover .info {
   color: #fff;
 }
 .dark {

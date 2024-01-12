@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="color: #f0f8ff">
     <h1>TODOS</h1>
     <div class="total">
       总计<span class="all">{{ total }}</span
@@ -31,6 +31,7 @@
             name="txt"
             :id="`todo${todo.id}`"
             class="txtinput"
+            style="color: #f0f8ff;"
             autocomplete="false"
             v-model="todo.txt"
             :disabled="todo.id == editTodoId"

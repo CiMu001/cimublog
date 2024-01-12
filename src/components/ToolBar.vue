@@ -1,19 +1,25 @@
 <template>
-  <div class="toolbar" ref="toolbar" :style="{transform: show ? 'translateX(0px)' : 'translateX(100px)'}">
+  <div class="toolbar" ref="toolbar">
     <div class="item">
       <b-icon class="zhuan-icon" icon="gear-fill" style="color: #fff; width: 20px; height: 20px;"></b-icon>
     </div>
-    <div class="item" @click="toTop">
-      <b-icon icon="caret-up-fill" style="color: #fff; width: 20px; height: 20px;"></b-icon>
+    <div class="item" @click="switchSnow">
+      <b-icon class="zhuan-icon" icon="snow" style="color: #fff; width: 20px; height: 20px;"></b-icon>
+    </div>
+    <div class="item" @click="toTop" :style="{ display: show ? 'block' : 'none' }">
+      <b-icon class="up-top" icon="caret-up-fill" style="color: #fff; width: 20px; height: 20px;"></b-icon>
     </div>
   </div>
 </template>
 
 <script>
+import { switchSnow } from '@/utils/snowflake';
+
 export default {
   data() {
     return {
       show: false,
+      switchSnow,
     };
   },
   mounted() {
@@ -21,6 +27,8 @@ export default {
     window.addEventListener("scroll", this.scrolling);
     // const curDom = this.$refs.toolbar;
     // console.log(curDom.parentElement.scrollTop);
+    // 进入默认下雪
+    switchSnow();
   },
   methods: {
     scrolling() {
@@ -53,7 +61,7 @@ export default {
   position: fixed;
   bottom: 32px;
   right: 32px;
-  transform: translateX(100px);
+  /* transform: translateX(100px); */
   transition: transform 0.5s;
   display: flex;
   flex-direction: column;
@@ -61,13 +69,14 @@ export default {
 }
 .item {
   background-color: #7952b3;
-  padding: 5px 6px;
+  padding: 5px 6px 4px;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .item:hover {
-  transform: scale(0.98);
+  transform: scale(0.9);
 }
 .zhuan-icon {
   animation: zhuan 10s infinite;
@@ -79,15 +88,15 @@ a {
 }
 
 @keyframes zhuan {
-    0% { transform: rotateZ(0deg); }
-    10% { transform: rotateZ(36deg); }
-    20% { transform: rotateZ(72deg); }
-    30% { transform: rotateZ(108deg); }
-    40% { transform: rotateZ(144deg); }
-    50% { transform: rotateZ(180deg); }
-    60% { transform: rotateZ(216deg); }
-    70% { transform: rotateZ(252deg); }
-    80% { transform: rotateZ(288deg); }
-    90% { transform: rotateZ(324deg); }
+  0% { transform: rotateZ(0deg); }
+  10% { transform: rotateZ(36deg); }
+  20% { transform: rotateZ(72deg); }
+  30% { transform: rotateZ(108deg); }
+  40% { transform: rotateZ(144deg); }
+  50% { transform: rotateZ(180deg); }
+  60% { transform: rotateZ(216deg); }
+  70% { transform: rotateZ(252deg); }
+  80% { transform: rotateZ(288deg); }
+  90% { transform: rotateZ(324deg); }
 }
 </style>

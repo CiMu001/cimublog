@@ -1,21 +1,26 @@
 <template>
-  <div class="hello">
+  <div class="hello" style="color: #fffc">
     <h1>Hello.</h1>
     <p class="name">My name is CiMu.</p>
     <!-- currently proficient in front-end basic three technologies, can use a variety of component libraries. -->
     <p class="text">
-      I'm a front-end rookie trying to get strong, I had a special internship experience, which made me decide the direction of my current focus on front-end, and also made me realize the importance of mastering basic front-end technology, by self-study deepened my understanding of HTML, CSS, JavaScript and Vue.JS.
+      I'm a frontend engineer, I wrote this website to create a testing area, practice some ideas and take study notes.
     </p>
     <p class="text">
-      To verify the results of learning, I wrote the <a href="https://github.com/didiaohu/50projects50days" target="_blank">50projects50days</a> project, which had many functions implemented by original JS, and exercised DOM operation and programming ability. You can check it out on <a href="https://github.com/CiMu001/50PracticeDemo" target="_blank">GitHub</a>, as well as a <a href="https://github.com/CiMu001/SimpleSearchEngine" target="_blank">simple search engine</a> and <a href="https://github.com/CiMu001/shopping-website-vue" target="_blank">Vipshop imitation projects</a>.
+      To verify knowledge, I wrote <a href="https://github.com/didiaohu/50projects50days" target="_blank">50projects50days</a> project, which a collection of small examples of using native ecology to implement features. You can check it out on <a href="https://github.com/CiMu001/50PracticeDemo" target="_blank">GitHub</a>, as well as a <a href="https://github.com/CiMu001/SimpleSearchEngine" target="_blank">simple search engine</a>,  crawlers and search engine technologies are also interesting.
     </p>
-    <p class="text">Finally, welcome to <a href="/">my blog <b-icon icon="egg-fried" style="color: #7952b3; width: 16px; height: 16px;"></b-icon></a></p>
+    <p class="text">Welcome to <a @click="jumpHome">CIMu's Blog <b-icon icon="egg-fried" style="color: #7952b3; width: 16px; height: 16px;"></b-icon></a></p>
   </div>
 </template>
 
 <script>
 export default {
   name: 'aboutView',
+  methods: {
+    jumpHome() {
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 
@@ -52,7 +57,7 @@ li {
 }
 a {
   display: inline-block;
-  color: #000;
+  color: #7e70e6;
   text-decoration: none;
   position: relative;
   padding: 0 2px;

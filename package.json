@@ -23,6 +23,8 @@
     "postcss-px-to-viewport": "^1.1.1",
     "postcss-pxtorem": "^6.0.0",
     "text-loader": "^0.0.1",
+    "three": "^0.121.0",
+    "vanta": "^0.5.24",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2",
